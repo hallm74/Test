@@ -12,19 +12,37 @@ body {
 }
 
 .dark-mode {
-    background-color: #343a40 !important;
-    color: #ffffff !important;
+    background-color: #121212 !important;
+    color: #e0e0e0 !important;
 }
 
 .dark-mode .card {
-    background-color: #495057;
+    background-color: #1e1e1e;
+    color: #e0e0e0;
 }
 
 .dark-mode .navbar {
-    background-color: #495057;
+    background-color: #1e1e1e;
+    color: #e0e0e0;
 }
 
 .dark-mode .table {
-    background-color: #495057;
+    background-color: #1e1e1e;
+    color: #e0e0e0;
+}
+
+.dark-mode .btn-secondary {
+    background-color: #3a3a3a;
+    border-color: #3a3a3a;
+    color: #e0e0e0;
+}
+
+.dark-mode .btn-primary {
+    background-color: #6200ea;
+    border-color: #6200ea;
     color: #ffffff;
+}
+
+.dark-mode .progress-bar {
+    background-color: #6200ea;
 }

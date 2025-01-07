@@ -14,6 +14,7 @@ exports.handler = async function(event, context) {
             body: JSON.stringify({ message: 'Leaderboard updated' }),
         };
     } catch (error) {
+        console.error('Error updating leaderboard:', error);
         return {
             statusCode: 500,
             body: JSON.stringify({ error: 'Failed to update leaderboard' }),

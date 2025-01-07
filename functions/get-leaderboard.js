@@ -11,6 +11,7 @@ exports.handler = async function(event, context) {
             body: JSON.stringify(leaderboard),
         };
     } catch (error) {
+        console.error('Error reading leaderboard:', error);
         return {
             statusCode: 500,
             body: JSON.stringify({ error: 'Failed to fetch leaderboard' }),

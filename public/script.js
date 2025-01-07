@@ -8,19 +8,24 @@ document.addEventListener('DOMContentLoaded', () => {
     let currentQuestionIndex = 0;
     let score = 0;
     let questions = [];
+    let scoreSubmitted = false; // Flag to track if the score has been submitted
+    let timerInterval; // Declare timerInterval in the outer scope
 
     darkModeToggle.addEventListener('click', () => {
         document.body.classList.toggle('dark-mode');
     });
 
     async function loadQuestions() {
-        questions = await fetchTriviaQuestions(9, 'easy'); // Example category and difficulty
+        const categoryID = 11; // Film category ID
+        questions = await fetchTriviaQuestions(categoryID, 'easy'); // Example difficulty
         displayQuestion();
     }
 
     function displayQuestion() {
         if (currentQuestionIndex >= questions.length) {
-            submitScore();
+            if (!scoreSubmitted) {
+                submitScore();
+            }
             return;
         }
         const question = questions[currentQuestionIndex];
@@ -41,12 +46,15 @@ document.addEventListener('DOMContentLoaded', () => {
             score++;
         }
         currentQuestionIndex++;
+        clearInterval(timerInterval); // Clear the timer interval when an answer is selected
         displayQuestion();
     }
 
     function startTimer() {
         let timeLeft = 100;
-        const timerInterval = setInterval(() => {
+        timerProgress.style.width = '100%'; // Reset the progress bar width
+        clearInterval(timerInterval); // Clear any existing timer interval
+        timerInterval = setInterval(() => {
             timeLeft--;
             timerProgress.style.width = `${timeLeft}%`;
             if (timeLeft <= 0) {
@@ -54,19 +62,22 @@ document.addEventListener('DOMContentLoaded', () => {
                 currentQuestionIndex++;
                 displayQuestion();
             }
-        }, 100);
+        }, 500); // Increase the interval duration to slow down the timer
     }
 
     async function submitScore() {
         const playerName = prompt('Enter your name:');
-        await updateLeaderboard(playerName, score);
-        displayLeaderboard();
+        if (playerName) {
+            await updateLeaderboard(playerName, score);
+            scoreSubmitted = true; // Set the flag to true after submitting the score
+            displayLeaderboard();
+        }
     }
 
     async function displayLeaderboard() {
         const leaderboard = await getLeaderboard();
         leaderboardBody.innerHTML = '';
-        leaderboard.sort((a, b) => b.score - a.score).forEach((entry, index) => {
+        leaderboard.sort((a, b) => b.score - a.score).slice(0, 5).forEach((entry, index) => {
             const row = document.createElement('tr');
             row.innerHTML = `
                 <th scope="row">${index + 1}</th>
