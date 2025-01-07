@@ -1,0 +1,30 @@
+body {
+    background-color: #f8f9fa;
+}
+
+.card {
+    margin: 0 auto;
+    max-width: 600px;
+}
+
+#leaderboard-container {
+    margin-top: 50px;
+}
+
+.dark-mode {
+    background-color: #343a40 !important;
+    color: #ffffff !important;
+}
+
+.dark-mode .card {
+    background-color: #495057;
+}
+
+.dark-mode .navbar {
+    background-color: #495057;
+}
+
+.dark-mode .table {
+    background-color: #495057;
+    color: #ffffff;
+}
